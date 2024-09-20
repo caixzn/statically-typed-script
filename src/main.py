@@ -129,7 +129,17 @@ if (cond1 && !cond2 && cond3) {
 }
 """
 
-lexer = Lexer(example_9)
+example_10 = """
+let 9invalid: bool = true;
+"""
+
+example_11 = """
+if (true) {
+    break; // error: break outside of loop
+}
+"""
+
+lexer = Lexer(example_11)
 tokens = lexer.tokenize()
 
 parser = Parser(tokens)
