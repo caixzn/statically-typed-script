@@ -19,6 +19,7 @@ Statement       ::= VariableDecl
                   | IfStatement
                   | AssignmentStmt
                   | "break" ";"
+                  | "print" "(" Expression ")" ";"
 ```
 
 
@@ -32,9 +33,7 @@ VariableDecl    ::= "let" Identifier ":" Type "=" Expression ";"
 ## Types
 
 ```ebnf
-Type            ::= "int8" | "int16" | "int32" | "int64"
-                  | "uint8" | "uint16" | "uint32" | "uint64"
-                  | "float32" | "float64" | "bool"
+Type            ::= "int" | "float" | "bool"
 ```
 
 

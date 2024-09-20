@@ -37,27 +37,11 @@ if __name__ == "__main__":
     G.add_terminal("=")
 
     G.add_nonterminal("Type")
-    G.add_production("Type", ["int8"])
-    G.add_production("Type", ["int16"])
-    G.add_production("Type", ["int32"])
-    G.add_production("Type", ["int64"])
-    G.add_production("Type", ["uint8"])
-    G.add_production("Type", ["uint16"])
-    G.add_production("Type", ["uint32"])
-    G.add_production("Type", ["uint64"])
-    G.add_production("Type", ["float32"])
-    G.add_production("Type", ["float64"])
+    G.add_production("Type", ["int"])
+    G.add_production("Type", ["float"])
     G.add_production("Type", ["bool"])
-    G.add_terminal("int8")
-    G.add_terminal("int16")
-    G.add_terminal("int32")
-    G.add_terminal("int64")
-    G.add_terminal("uint8")
-    G.add_terminal("uint16")
-    G.add_terminal("uint32")
-    G.add_terminal("uint64")
-    G.add_terminal("float32")
-    G.add_terminal("float64")
+    G.add_terminal("int")
+    G.add_terminal("float")
     G.add_terminal("bool")
 
     G.add_nonterminal("WhileLoop")
@@ -67,13 +51,17 @@ if __name__ == "__main__":
     G.add_terminal(")")
 
     G.add_nonterminal("IfStatement")
-    G.add_production("IfStatement", ["if", "(", "Expression", ")", "Block", "ElsePart"])
+    G.add_production("IfStatement", ["if", "(", "Expression", ")", "Block", "ElseIfList"])
     G.add_terminal("if")
 
-    G.add_nonterminal("ElsePart")
-    G.add_production("ElsePart", ["else", "Block"])
-    G.add_production("ElsePart", [])  # epsilon
+    G.add_nonterminal("ElseIfList")
+    G.add_production("ElseIfList", ["else", "ElseIfPart"])
+    G.add_production("ElseIfList", [])  # epsilon
     G.add_terminal("else")
+
+    G.add_nonterminal("ElseIfPart")
+    G.add_production("ElseIfPart", ["IfStatement"])
+    G.add_production("ElseIfPart", ["Block"])
 
     G.add_nonterminal("Block")
     G.add_production("Block", ["{", "StatementList", "}"])
@@ -185,6 +173,8 @@ if __name__ == "__main__":
     G.add_terminal("true")
     G.add_terminal("false")
 
+    G.add_production("Statement", ["print", "(", "Expression", ")", ";"])
+    G.add_terminal("print")
 
     print_grammar(G)
     print("Imprimindo terminais")
